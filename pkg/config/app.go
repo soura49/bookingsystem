@@ -1,29 +1,20 @@
 package config
 
 import (
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialets/mysql"
+	"fmt"
+
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 var (
 	db *gorm.DB
 )
 
-// type dbConnectionString struct {
-// 	dbUserName  string
-// 	dbPassword  string
-// 	dbTableName string
-// }
-
-// func getDbConnectionString(db *dbConnectionString) string {
-// 	mySqlRequiredString := "?charset=utf8&parseTime=True&loc=Local"
-// 	return db.dbUserName + ":" + db.dbPassword + "/" + db.dbTableName + mySqlRequiredString
-// }
-
 func Connect() {
-	dbConnectionUrl := ""
-	//dbConnectionUrl := getDbConnectionString(&dbConnectionString)
-	d, err := gorm.Open("mysql", dbConnectionUrl)
+	dsn := "root:MyNewPass@tcp(127.0.0.1:3306)/applications?charset=utf8mb4&parseTime=True&loc=Local"
+	d, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	fmt.Println("DB connection Successfully")
 	if err != nil {
 		panic(err)
 	}

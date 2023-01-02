@@ -1,6 +1,7 @@
-package cmd
+package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -15,4 +16,5 @@ func main() {
 	routes.RegisterBookStoreRoutes(r)
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(portNumber, r))
+	fmt.Println("Started the Rest API server")
 }
